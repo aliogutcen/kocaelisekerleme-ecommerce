@@ -131,7 +131,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
               {/* Minimal Navigation Dots */}
               {images.length > 1 && (
                 <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-                  {images.map((_, index) => (
+                  {images.map((_: any, index:any) => (
                     <button
                       key={index}
                       onClick={() => setSelectedImageIndex(index)}
@@ -157,7 +157,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
             {/* Thumbnail Grid - More Minimal */}
             {images.length > 1 && (
               <div className="grid grid-cols-4 gap-4">
-                {images.map((image, index) => (
+                {images.map((image:any, index:any) => (
                   <button
                     key={index}
                     onClick={() => setSelectedImageIndex(index)}
@@ -469,7 +469,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
                   <div className="inline-block text-left">
                     <h3 className="text-xs tracking-widest text-neutral-400 mb-8">İÇİNDEKİLER</h3>
                     <div className="space-y-2">
-                      {(product.ingredients || "Susam, şeker, glikoz şurubu").split(',').map((ingredient, index) => (
+                      {(product.ingredients || "Susam, şeker, glikoz şurubu").split(',').map((ingredient:any, index:any) => (
                         <p key={index} className="text-2xl font-extralight text-neutral-800">
                           {ingredient.trim()}
                         </p>

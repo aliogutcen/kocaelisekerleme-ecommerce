@@ -1,19 +1,11 @@
 import { notFound } from "next/navigation"
 import { prisma } from "@/lib/prisma"
-import ProductDetailClient from "./product-detail-client"
+import ProductDetailClient from "@/components/product/product-detail-client"
+
+export const dynamic = 'force-dynamic'
 
 interface ProductPageProps {
   params: { slug: string }
-}
-
-export async function generateStaticParams() {
-  const products = await prisma.product.findMany({
-    select: { slug: true }
-  })
-
-  return products.map((product) => ({
-    slug: product.slug
-  }))
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
