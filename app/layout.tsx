@@ -19,6 +19,8 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Kocaeli Şekerleme - Geleneksel Doğal Ürünler",
   description: "1948'den beri tahin, tahin helvası, pekmez ve lokum üreticisi",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=5",
+  themeColor: "#fafafa",
 };
 
 export default function RootLayout({

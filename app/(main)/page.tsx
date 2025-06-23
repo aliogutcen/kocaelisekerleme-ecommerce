@@ -10,91 +10,160 @@ import { Button } from "@/components/ui/button"
 export default function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0)
 
-  // Auto-slide
+  // Auto-slide with premium timing
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % 3)
-    }, 5000)
+    }, 6000)
     return () => clearInterval(timer)
   }, [])
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section - Minimal */}
-      <section className="relative h-[90vh] flex items-center">
-        <AnimatePresence mode="wait">
+      {/* Hero Section - Luxury Premium Mobile */}
+      <section className="relative h-screen md:h-[90vh] flex items-center overflow-hidden bg-white">
+        {/* All Images Preloaded */}
+        {[0, 1, 2].map((index) => (
           <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
+            key={index}
+            animate={{ 
+              opacity: currentSlide === index ? 1 : 0,
+              scale: currentSlide === index ? 1 : 1.05
+            }}
+            transition={{ 
+              duration: 2,
+              ease: "easeInOut"
+            }}
             className="absolute inset-0"
+            style={{ zIndex: currentSlide === index ? 1 : 0 }}
           >
             <Image
-              src={currentSlide === 0 ? "/hero.jpg" : currentSlide === 1 ? "/mobile-hero.jpg" : "/hero.jpg"}
+              src={index === 0 ? "/hero.jpg" : index === 1 ? "/mobile-hero.jpg" : "/hero.jpg"}
               alt="Kocaeli Şekerleme"
               fill
-              className="object-cover"
+              className="object-cover object-center"
               priority
+              quality={100}
             />
           </motion.div>
-        </AnimatePresence>
+        ))}
         
-        <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-white/60" />
+        {/* Premium Parallax Overlay */}
+        <motion.div 
+          animate={{ opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"
+        />
         
-        <div className="relative z-10 container mx-auto px-4">
-          <div className="max-w-2xl">
+        {/* Premium Gradient Overlay for Mobile */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50 md:from-white/20 md:via-transparent md:to-white/70 pointer-events-none" />
+        
+        <div className="relative z-10 container mx-auto px-8 md:px-4 h-full flex items-center">
+          <div className="max-w-2xl w-full">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="space-y-6 md:space-y-8"
             >
-              <p className="text-xs tracking-[0.3em] text-neutral-600 mb-6">KOCAELI ŞEKERLEME • EST. 1948</p>
-              <h1 className="text-6xl lg:text-8xl font-extralight text-neutral-900 leading-[0.9] mb-8">
-                Geleneksel
-                <span className="block font-light">Lezzetler</span>
-              </h1>
-              <p className="text-lg text-neutral-700 font-light mb-12 max-w-md">
-                77 yıldır aynı özenle ürettiğimiz tahini ve helvalarımızla sofralarınıza değer katıyoruz.
-              </p>
+              {/* Premium Badge */}
+              <motion.p 
+                initial={{ opacity: 0, letterSpacing: "0.1em", y: 20 }}
+                animate={{ opacity: 1, letterSpacing: "0.3em", y: 0 }}
+                transition={{ duration: 2, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="text-[11px] md:text-xs tracking-[0.3em] md:tracking-[0.4em] text-white/90 md:text-neutral-600 uppercase font-light"
+              >
+                KOCAELI ŞEKERLEME • EST. 1948
+              </motion.p>
               
-              <div className="flex gap-4">
-                <Link href="/products">
-                  <Button className="h-12 px-8 bg-neutral-900 hover:bg-neutral-800 text-white font-light tracking-wider">
+              {/* Luxury Title */}
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extralight text-white md:text-neutral-900 leading-[1.15]">
+                <motion.span 
+                  initial={{ opacity: 0, x: -50, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                  transition={{ duration: 1.5, delay: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="block"
+                >
+                  Geleneksel
+                </motion.span>
+                <motion.span 
+                  initial={{ opacity: 0, x: 50, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                  transition={{ duration: 1.5, delay: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  className="block font-light mt-2"
+                >
+                  Lezzetler
+                </motion.span>
+              </h1>
+              
+              {/* Premium Description */}
+              <motion.p 
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.5, delay: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="text-lg md:text-xl text-white/85 md:text-neutral-700 font-light max-w-lg leading-relaxed"
+              >
+                77 yıldır aynı özenle ürettiğimiz tahini ve helvalarımızla sofralarınıza değer katıyoruz.
+              </motion.p>
+              
+              {/* Premium Buttons */}
+              <motion.div 
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1.5, delay: 1.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="flex flex-col sm:flex-row gap-4 pt-6 md:pt-8"
+              >
+                <Link href="/products" className="group">
+                  <Button className="h-14 md:h-12 px-10 md:px-8 bg-white/95 md:bg-neutral-900 backdrop-blur-sm text-neutral-900 md:text-white hover:bg-white md:hover:bg-neutral-800 font-light tracking-[0.15em] w-full sm:w-auto text-[15px] shadow-2xl md:shadow-none transition-all duration-500 group-hover:tracking-[0.2em]">
                     KOLEKSİYONU KEŞFET
                   </Button>
                 </Link>
-                <Link href="/about">
-                  <Button variant="outline" className="h-12 px-8 border-neutral-900 text-neutral-900 hover:bg-neutral-900 hover:text-white font-light tracking-wider">
+                <Link href="/about" className="group">
+                  <Button variant="outline" className="h-14 md:h-12 px-10 md:px-8 border-white/80 md:border-neutral-900 text-white md:text-neutral-900 hover:bg-white/10 md:hover:bg-neutral-900 hover:text-white md:hover:text-white font-light tracking-[0.15em] w-full sm:w-auto text-[15px] backdrop-blur-sm transition-all duration-500 group-hover:tracking-[0.2em] bg-black md:bg-transparent">
                     HİKAYEMİZ
                   </Button>
                 </Link>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
         </div>
 
-        {/* Slide Indicators */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2">
+        {/* Premium Slide Indicators */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.5 }}
+          className="absolute bottom-16 md:bottom-12 left-1/2 -translate-x-1/2 flex gap-3 z-20"
+        >
           {[0, 1, 2].map((index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`h-1 transition-all duration-300 ${
-                currentSlide === index ? "w-12 bg-neutral-900" : "w-4 bg-neutral-400"
-              }`}
-            />
+              className="relative overflow-hidden group"
+              aria-label={`Go to slide ${index + 1}`}
+            >
+              <div className={`h-[2px] transition-all duration-1000 ${
+                currentSlide === index ? "w-12 md:w-16 bg-white/60 md:bg-neutral-400" : "w-6 md:w-8 bg-white/30 md:bg-neutral-300"
+              }`} />
+              {currentSlide === index && (
+                <motion.div
+                  initial={{ x: "-100%" }}
+                  animate={{ x: "100%" }}
+                  transition={{ duration: 5, ease: "linear" }}
+                  className="absolute inset-0 h-[2px] bg-white md:bg-neutral-900"
+                />
+              )}
+            </button>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       {/* Featured Products - Minimal Grid */}
-      <section className="py-32">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <p className="text-xs tracking-[0.3em] text-neutral-400 mb-4">ÖNE ÇIKANLAR</p>
-            <h2 className="text-4xl font-extralight text-neutral-900">En Sevilenler</h2>
+      <section className="py-16 md:py-32">
+        <div className="container mx-auto px-6 md:px-4">
+          <div className="text-center mb-12 md:mb-16">
+            <p className="text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] text-neutral-400 mb-4 uppercase">ÖNE ÇIKANLAR</p>
+            <h2 className="text-3xl md:text-4xl font-extralight text-neutral-900">En Sevilenler</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -144,47 +213,47 @@ export default function HomePage() {
       </section>
 
       {/* Story Section - Minimal */}
-      <section className="py-32 bg-neutral-50">
-        <div className="container mx-auto px-4">
+      <section className="py-16 md:py-32 bg-neutral-50">
+        <div className="container mx-auto px-6 md:px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <p className="text-xs tracking-[0.3em] text-neutral-400 mb-6">MİRASIMIZ</p>
-              <h2 className="text-4xl font-extralight text-neutral-900 mb-8">
+              <p className="text-[10px] md:text-xs tracking-[0.2em] md:tracking-[0.3em] text-neutral-400 mb-4 md:mb-6 uppercase">MİRASIMIZ</p>
+              <h2 className="text-3xl md:text-4xl font-extralight text-neutral-900 mb-6 md:mb-8">
                 1948'den Bugüne
-                <span className="block text-2xl mt-2 text-neutral-600">Aynı Tutku, Aynı Özen</span>
+                <span className="block text-xl md:text-2xl mt-2 text-neutral-600">Aynı Tutku, Aynı Özen</span>
               </h2>
-              <p className="text-lg text-neutral-700 font-light mb-6 leading-relaxed">
+              <p className="text-base md:text-lg text-neutral-700 font-light mb-4 md:mb-6 leading-relaxed">
                 Kocaeli'nin kalbinde başlayan hikayemiz, üç nesildir aynı tutkuyla devam ediyor.
               </p>
-              <p className="text-neutral-600 font-light mb-12 leading-relaxed">
+              <p className="text-sm md:text-base text-neutral-600 font-light mb-8 md:mb-12 leading-relaxed">
                 Dedelerimizden öğrendiğimiz geleneksel yöntemlerle, en kaliteli hammaddeleri 
                 kullanarak üretim yapıyoruz. Her ürünümüz, taş değirmenlerde özenle öğütülmüş 
                 susamlardan, el emeğiyle hazırlanmış helvalara kadar, bir ustalık hikayesi taşır.
               </p>
               
-              <div className="grid grid-cols-3 gap-8 mb-12">
+              <div className="grid grid-cols-3 gap-4 md:gap-8 mb-8 md:mb-12">
                 <div>
-                  <p className="text-3xl font-extralight text-neutral-900">77</p>
-                  <p className="text-xs tracking-wider text-neutral-600">YIL</p>
+                  <p className="text-2xl md:text-3xl font-extralight text-neutral-900">77</p>
+                  <p className="text-[10px] md:text-xs tracking-wider text-neutral-600">YIL</p>
                 </div>
                 <div>
-                  <p className="text-3xl font-extralight text-neutral-900">3</p>
-                  <p className="text-xs tracking-wider text-neutral-600">NESİL</p>
+                  <p className="text-2xl md:text-3xl font-extralight text-neutral-900">3</p>
+                  <p className="text-[10px] md:text-xs tracking-wider text-neutral-600">NESİL</p>
                 </div>
                 <div>
-                  <p className="text-3xl font-extralight text-neutral-900">%100</p>
-                  <p className="text-xs tracking-wider text-neutral-600">DOĞAL</p>
+                  <p className="text-2xl md:text-3xl font-extralight text-neutral-900">%100</p>
+                  <p className="text-[10px] md:text-xs tracking-wider text-neutral-600">DOĞAL</p>
                 </div>
               </div>
 
               <Link href="/about">
-                <Button className="h-12 px-8 bg-neutral-900 hover:bg-neutral-800 text-white font-light tracking-wider">
+                <Button className="h-10 md:h-12 px-6 md:px-8 bg-neutral-900 hover:bg-neutral-800 text-white font-light tracking-wider text-sm md:text-base">
                   HİKAYEMİZİ OKUYUN
                 </Button>
               </Link>
             </div>
             
-            <div className="relative h-[600px]">
+            <div className="relative h-[400px] md:h-[600px]">
               <Image
                 src="/hero.jpg"
                 alt="Geleneksel Üretim"
@@ -197,8 +266,8 @@ export default function HomePage() {
       </section>
 
       {/* Categories - Minimal */}
-      <section className="py-32">
-        <div className="container mx-auto px-4">
+      <section className="py-16 md:py-32">
+        <div className="container mx-auto px-6 md:px-4">
           <div className="text-center mb-16">
             <p className="text-xs tracking-[0.3em] text-neutral-400 mb-4">KATEGORİLER</p>
             <h2 className="text-4xl font-extralight text-neutral-900">Ürün Koleksiyonları</h2>
@@ -234,105 +303,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Reviews - Ultra Premium */}
-      <section className="py-40 bg-gradient-to-b from-white via-neutral-50 to-white">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="max-w-7xl mx-auto"
-          >
-            <div className="text-center mb-20">
-              <p className="text-xs tracking-[0.4em] text-neutral-400 mb-6">DEĞERLI YORUMLAR</p>
-              <h2 className="text-5xl lg:text-6xl font-extralight text-neutral-900 leading-tight">
-                Müşterilerimizin
-                <span className="block text-3xl text-neutral-600 mt-2">Gözünden</span>
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-              {reviews.map((review, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.2, duration: 0.8 }}
-                  className="relative"
-                >
-                  {/* Background accent */}
-                  <div className="absolute -top-4 -left-4 w-24 h-24 bg-neutral-100/50 rounded-full blur-2xl" />
-                  
-                  <div className="relative bg-white p-10 shadow-[0_2px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-shadow duration-500">
-                    {/* Quote mark */}
-                    <div className="absolute -top-6 left-10 text-8xl text-neutral-100 font-serif leading-none">"</div>
-                    
-                    {/* Stars with custom styling */}
-                    <div className="flex gap-2 mb-8 relative z-10">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-3 w-3 fill-neutral-900 text-neutral-900" strokeWidth={0} />
-                      ))}
-                    </div>
-                    
-                    {/* Review text */}
-                    <p className="text-neutral-700 font-light leading-relaxed mb-10 relative z-10 text-lg">
-                      {review.comment}
-                    </p>
-                    
-                    {/* Divider */}
-                    <div className="w-12 h-px bg-neutral-200 mb-8" />
-                    
-                    {/* Customer info */}
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <p className="text-sm font-medium text-neutral-900 tracking-wide">{review.name}</p>
-                        <p className="text-xs text-neutral-500 mt-1">{review.product}</p>
-                      </div>
-                      <div className="text-xs text-neutral-400">
-                        <span className="tracking-wider">VERİFİED</span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Trust indicators */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.6 }}
-              className="mt-20 text-center"
-            >
-              <div className="inline-flex items-center gap-8 text-sm text-neutral-500">
-                <div className="flex items-center gap-2">
-                  <span className="font-light">4.9</span>
-                  <div className="flex gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-3 w-3 fill-neutral-400 text-neutral-400" strokeWidth={0} />
-                    ))}
-                  </div>
-                </div>
-                <div className="w-px h-4 bg-neutral-300" />
-                <span className="font-light">2,847 Değerlendirme</span>
-                <div className="w-px h-4 bg-neutral-300" />
-                <span className="font-light">%98 Memnuniyet</span>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
+      
+     
 
      
 
       {/* Trust Badges - Premium Minimal */}
-      <section className="py-32">
-        <div className="container mx-auto px-4">
+      <section className="py-16 md:py-32">
+        <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -386,8 +366,8 @@ export default function HomePage() {
       </section>
 
       {/* Limited Edition - Premium */}
-      <section className="py-32 bg-neutral-50">
-        <div className="container mx-auto px-4">
+      <section className="py-16 md:py-32 bg-neutral-50">
+        <div className="container mx-auto px-6 md:px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <motion.div
@@ -488,43 +468,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Philosophy Section - Minimal */}
-      <section className="py-32">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <p className="text-xs tracking-[0.3em] text-neutral-400 mb-8">FELSEFEMİZ</p>
-              <h2 className="text-5xl lg:text-6xl font-extralight text-neutral-900 leading-tight mb-12">
-                "En iyi malzeme,
-                <span className="block">en özenli el"</span>
-              </h2>
-              <div className="space-y-6 max-w-2xl mx-auto">
-                <p className="text-lg text-neutral-700 font-light leading-relaxed">
-                  Üç nesildir aynı ilkeyle çalışıyoruz: En kaliteli hammaddeleri seçmek ve 
-                  onları geleneksel yöntemlerle, modern hijyen standartlarında işlemek.
-                </p>
-                <p className="text-neutral-600 font-light leading-relaxed">
-                  Her ürünümüzde dedemizin öğrettiği sabır ve özen var. Taş değirmenlerde 
-                  öğüttüğümüz susamdan, el ile karıştırdığımız helvaya kadar her aşamada 
-                  kaliteden ödün vermiyoruz.
-                </p>
-              </div>
-              <div className="flex justify-center mt-12">
-                <div className="w-24 h-[1px] bg-neutral-300" />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+    
 
       {/* Featured Bundle - Premium Offer */}
-      <section className="py-32 bg-neutral-900 text-white">
-        <div className="container mx-auto px-4">
+      <section className="py-16 md:py-32 bg-neutral-900 text-white">
+        <div className="container mx-auto px-6 md:px-4">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -539,12 +487,12 @@ export default function HomePage() {
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="order-2 lg:order-1">
-                <h3 className="text-2xl font-extralight mb-6">7 Farklı Lezzet Bir Arada</h3>
-                <p className="text-neutral-300 font-light mb-8 leading-relaxed">
+                <h3 className="text-xl md:text-2xl font-extralight mb-4 md:mb-6">7 Farklı Lezzet Bir Arada</h3>
+                <p className="text-neutral-300 font-light mb-6 md:mb-8 leading-relaxed text-sm md:text-base">
                   En sevilen ürünlerimizden oluşan özel deneme paketimizle tüm lezzetlerimizi keşfedin.
                 </p>
                 
-                <div className="grid grid-cols-2 gap-4 mb-12">
+                <div className="grid grid-cols-2 gap-3 md:gap-4 mb-8 md:mb-12">
                   {[
                     "Tahin Helvası (250g)",
                     "Cevizli Helva (200g)",
@@ -556,23 +504,23 @@ export default function HomePage() {
                   ].map((item, index) => (
                     <div key={index} className="flex items-center gap-2">
                       <div className="w-1 h-1 bg-white rounded-full" />
-                      <p className="text-sm font-light">{item}</p>
+                      <p className="text-xs md:text-sm font-light">{item}</p>
                     </div>
                   ))}
                 </div>
                 
-                <div className="flex items-baseline gap-6 mb-8">
+                <div className="flex items-baseline gap-4 md:gap-6 mb-6 md:mb-8">
                   <div>
-                    <p className="text-sm text-neutral-400 line-through mb-1">449.90 TL</p>
-                    <p className="text-4xl font-extralight">349.90 TL</p>
+                    <p className="text-xs md:text-sm text-neutral-400 line-through mb-1">449.90 TL</p>
+                    <p className="text-2xl md:text-4xl font-extralight">349.90 TL</p>
                   </div>
-                  <span className="text-xs tracking-wider text-green-400 border border-green-400 px-3 py-1">
+                  <span className="text-[10px] md:text-xs tracking-wider text-green-400 border border-green-400 px-2 md:px-3 py-1">
                     %22 İNDİRİM
                   </span>
                 </div>
                 
                 <Link href="/products/gurme-deneme-paketi">
-                  <Button className="h-12 px-8 bg-white hover:bg-neutral-100 text-neutral-900 font-light tracking-wider">
+                  <Button className="h-10 md:h-12 px-6 md:px-8 bg-white hover:bg-neutral-100 text-neutral-900 font-light tracking-wider text-sm md:text-base">
                     HEMEN SATIN AL
                   </Button>
                 </Link>
@@ -596,89 +544,45 @@ export default function HomePage() {
           </motion.div>
         </div>
       </section>
-
-      {/* Master Craftsmen - Ultra Premium */}
-      <section className="py-40 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-50 via-white to-neutral-50" />
-        <div className="container mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="max-w-6xl mx-auto"
-          >
-            <div className="text-center mb-20">
-              <p className="text-xs tracking-[0.4em] text-neutral-400 mb-6">USTALARIMIZ</p>
-              <h2 className="text-5xl lg:text-6xl font-extralight text-neutral-900">
-                Ellerin Sanatı
+  {/* Philosophy Section - Minimal */}
+  <section className="py-16 md:py-32">
+        <div className="container mx-auto px-6 md:px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <p className="text-xs tracking-[0.3em] text-neutral-400 mb-8">FELSEFEMİZ</p>
+              <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight text-neutral-900 leading-tight mb-8 md:mb-12">
+                "En iyi malzeme,
+                <span className="block">en özenli el"</span>
               </h2>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
-              {[
-                {
-                  name: "Mehmet Usta",
-                  title: "Baş Helvacı",
-                  experience: "42 Yıl",
-                  specialty: "Tahin Helvası",
-                  quote: "Her helva bir hikaye, her karıştırma bir dua."
-                },
-                {
-                  name: "Ali Usta",
-                  title: "Tahin Uzmanı",
-                  experience: "38 Yıl",
-                  specialty: "Taş Değirmen",
-                  quote: "Susamın ruhunu ancak taş değirmen anlar."
-                },
-                {
-                  name: "Ayşe Usta",
-                  title: "Lokum Ustası",
-                  experience: "35 Yıl",
-                  specialty: "El Yapımı Lokum",
-                  quote: "Şeker ve sabır, lezzetin iki yarısıdır."
-                }
-              ].map((master, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.2 }}
-                  className="text-center"
-                >
-                  <div className="w-32 h-32 mx-auto mb-8 relative">
-                    <div className="absolute inset-0 bg-gradient-to-b from-neutral-100 to-neutral-200 rounded-full" />
-                    <div className="absolute inset-2 bg-white rounded-full" />
-                    <div className="absolute inset-4 bg-neutral-100 rounded-full overflow-hidden">
-                      <Image
-                        src="/hero.jpg"
-                        alt={master.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
-                  <h3 className="text-lg font-light text-neutral-900 mb-1">{master.name}</h3>
-                  <p className="text-xs tracking-wider text-neutral-500 mb-3">{master.title.toUpperCase()}</p>
-                  <div className="flex items-center justify-center gap-4 text-xs text-neutral-400 mb-6">
-                    <span>{master.experience}</span>
-                    <span className="w-px h-3 bg-neutral-300" />
-                    <span>{master.specialty}</span>
-                  </div>
-                  <p className="text-sm text-neutral-600 font-light italic max-w-xs mx-auto">
-                    "{master.quote}"
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+              <div className="space-y-6 max-w-2xl mx-auto">
+                <p className="text-lg text-neutral-700 font-light leading-relaxed">
+                  Üç nesildir aynı ilkeyle çalışıyoruz: En kaliteli hammaddeleri seçmek ve 
+                  onları geleneksel yöntemlerle, modern hijyen standartlarında işlemek.
+                </p>
+                <p className="text-neutral-600 font-light leading-relaxed">
+                  Her ürünümüzde dedemizin öğrettiği sabır ve özen var. Taş değirmenlerde 
+                  öğüttüğümüz susamdan, el ile karıştırdığımız helvaya kadar her aşamada 
+                  kaliteden ödün vermiyoruz.
+                </p>
+              </div>
+              <div className="flex justify-center mt-12">
+                <div className="w-24 h-[1px] bg-neutral-300" />
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
+
+     
       {/* Process Excellence - Ultra Minimal */}
-      <section className="py-40 bg-neutral-900 text-white">
-        <div className="container mx-auto px-4">
+      <section className="py-20 md:py-40 bg-neutral-900 text-white">
+        <div className="container mx-auto px-6 md:px-4">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -689,9 +593,9 @@ export default function HomePage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
               <div>
                 <p className="text-xs tracking-[0.4em] text-neutral-400 mb-8">ÜRETIM SÜRECİ</p>
-                <h2 className="text-5xl font-extralight mb-12 leading-tight">
+                <h2 className="text-3xl md:text-5xl font-extralight mb-8 md:mb-12 leading-tight">
                   Mükemmellik
-                  <span className="block text-3xl text-neutral-400 mt-4">Her Aşamada</span>
+                  <span className="block text-xl md:text-3xl text-neutral-400 mt-2 md:mt-4">Her Aşamada</span>
                 </h2>
                 
                 <div className="space-y-8">
@@ -743,54 +647,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Heritage Timeline - Desktop Only */}
-      <section className="hidden md:block py-40">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-20">
-              <p className="text-xs tracking-[0.4em] text-neutral-400 mb-6">TARİHİMİZ</p>
-              <h2 className="text-5xl font-extralight text-neutral-900">77 Yıllık Yolculuk</h2>
-            </div>
-            
-            <div className="relative">
-              {/* Timeline Line */}
-              <div className="absolute left-0 right-0 top-1/2 h-px bg-neutral-200" />
-              
-              {/* Timeline Items */}
-              <div className="grid grid-cols-5 relative">
-                {[
-                  { year: "1948", event: "Kuruluş", detail: "İlk dükkân Kocaeli'de açıldı" },
-                  { year: "1965", event: "Büyüme", detail: "İlk fabrika kuruldu" },
-                  { year: "1987", event: "Yenilik", detail: "Modern üretim teknikleri" },
-                  { year: "2010", event: "Kalite", detail: "ISO sertifikaları alındı" },
-                  { year: "2025", event: "Dijital", detail: "Online satış başladı" }
-                ].map((item, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    className="relative text-center"
-                  >
-                    <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-white border-2 border-neutral-900 rounded-full" />
-                    <div className={`${index % 2 === 0 ? 'pb-24' : 'pt-24'}`}>
-                      <p className="text-3xl font-extralight text-neutral-900 mb-2">{item.year}</p>
-                      <p className="text-sm font-medium text-neutral-900 mb-1">{item.event}</p>
-                      <p className="text-xs text-neutral-500">{item.detail}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+  
 
 
       {/* Sustainability - Premium Eco */}
-      <section className="py-40 bg-neutral-50">
-        <div className="container mx-auto px-4">
+      <section className="py-20 md:py-40 bg-neutral-50">
+        <div className="container mx-auto px-6 md:px-4">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <motion.div
@@ -881,30 +743,196 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      {/* Reviews - Luxury Premium Concept */}
+      <section className="py-24 md:py-48 lg:py-64 bg-gradient-to-b from-white via-neutral-50/30 to-white">
+        <div className="container mx-auto px-6 md:px-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5 }}
+            className="max-w-7xl mx-auto"
+          >
+            {/* Luxury Header */}
+            <div className="max-w-3xl mx-auto text-center mb-24 md:mb-40">
+              <motion.div 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2 }}
+              >
+                <p className="text-[10px] tracking-[0.6em] text-neutral-400 mb-12 uppercase font-extralight">TESTIMONIALS</p>
+                <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight text-neutral-900 leading-[1.2]">
+                  <span className="italic font-serif">Değerli</span> Yorumlar
+                </h2>
+              </motion.div>
+            </div>
 
- {/* Newsletter - Minimal */}
- <section className="py-32">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto text-center">
-            <p className="text-xs tracking-[0.3em] text-neutral-400 mb-4">BÜLTEN</p>
-            <h2 className="text-4xl font-extralight text-neutral-900 mb-8">
-              Yeniliklerden Haberdar Olun
-            </h2>
-            <p className="text-lg text-neutral-600 font-light mb-12">
-              Özel koleksiyonlar ve yeni ürünlerden ilk siz haberdar olun.
-            </p>
-            
-            <form className="flex gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="E-posta adresiniz"
-                className="flex-1 h-12 px-6 border border-neutral-300 focus:border-neutral-900 focus:outline-none transition-colors"
-              />
-              <Button className="h-12 px-8 bg-neutral-900 hover:bg-neutral-800 text-white font-light tracking-wider">
-                ABONE OL
-              </Button>
-            </form>
-          </div>
+            {/* Luxury Reviews - Horizontal Layout */}
+            <div className="space-y-20 md:space-y-32">
+              {reviews.map((review, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 1.2, delay: index * 0.1 }}
+                  className="relative"
+                >
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center">
+                    {/* Review Number */}
+                    <div className="hidden md:block md:col-span-1">
+                      <span className="text-6xl font-extralight text-neutral-100">0{index + 1}</span>
+                    </div>
+                    
+                    {/* Review Content */}
+                    <div className="md:col-span-7 lg:col-span-8">
+                      <blockquote className="relative">
+                        <p className="text-lg md:text-2xl lg:text-3xl font-extralight leading-[1.6] text-neutral-700 italic">
+                          "{review.comment}"
+                        </p>
+                      </blockquote>
+                    </div>
+                    
+                    {/* Customer Info - Right Aligned */}
+                    <div className="md:col-span-4 lg:col-span-3 md:text-right">
+                      <div className="flex flex-col gap-2">
+                        <p className="text-sm md:text-base font-light text-neutral-900 tracking-[0.2em]">{review.name.toUpperCase()}</p>
+                        <p className="text-[11px] md:text-xs text-neutral-400 font-extralight tracking-[0.3em] uppercase">{review.product}</p>
+                        {/* Premium Star Rating */}
+                        <div className="flex gap-1 mt-3 md:justify-end">
+                          {[...Array(5)].map((_, i) => (
+                            <svg key={i} className="w-3 h-3 fill-neutral-300" viewBox="0 0 20 20">
+                              <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                            </svg>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Luxury Divider */}
+                  {index < reviews.length - 1 && (
+                    <div className="absolute -bottom-10 md:-bottom-16 left-0 right-0">
+                      <div className="max-w-xl mx-auto h-[0.5px] bg-gradient-to-r from-transparent via-neutral-200 to-transparent" />
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Luxury Trust Metrics */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.6, duration: 1.2 }}
+              className="mt-32 md:mt-48"
+            >
+              <div className="grid grid-cols-3 max-w-4xl mx-auto">
+                <div className="text-center border-r border-neutral-200">
+                  <p className="text-3xl md:text-5xl font-extralight text-neutral-900 mb-2">4.9</p>
+                  <p className="text-[10px] md:text-xs text-neutral-400 font-extralight tracking-[0.3em] uppercase">Ortalama Puan</p>
+                </div>
+                <div className="text-center border-r border-neutral-200">
+                  <p className="text-3xl md:text-5xl font-extralight text-neutral-900 mb-2">2.8K</p>
+                  <p className="text-[10px] md:text-xs text-neutral-400 font-extralight tracking-[0.3em] uppercase">Değerlendirme</p>
+                </div>
+                <div className="text-center">
+                  <p className="text-3xl md:text-5xl font-extralight text-neutral-900 mb-2">98%</p>
+                  <p className="text-[10px] md:text-xs text-neutral-400 font-extralight tracking-[0.3em] uppercase">Memnuniyet</p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Newsletter - Ultra Premium Minimal */}
+      <section className="py-32 md:py-48 bg-neutral-900 relative overflow-hidden">
+        {/* Subtle Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 1px)`,
+            backgroundSize: '40px 40px'
+          }} />
+        </div>
+        
+        <div className="container mx-auto px-6 md:px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.2 }}
+            className="max-w-4xl mx-auto"
+          >
+            {/* Premium Content */}
+            <div className="text-center">
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="text-[11px] tracking-[0.5em] text-neutral-400 mb-12 uppercase font-light"
+              >
+                Ayrıcalıklı Üyelik
+              </motion.p>
+              
+              <motion.h2 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="text-4xl md:text-6xl lg:text-7xl font-extralight text-white leading-[1.1] mb-8"
+              >
+                İlk Siz Haberdar Olun
+              </motion.h2>
+              
+              <motion.p 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+                className="text-lg md:text-xl text-neutral-400 font-light mb-16 max-w-2xl mx-auto leading-relaxed"
+              >
+                Özel koleksiyonlar, sınırlı üretimler ve size özel fırsatlar için bültenimize katılın.
+              </motion.p>
+              
+              {/* Premium Form */}
+              <motion.form 
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.6 }}
+                className="max-w-xl mx-auto"
+                onSubmit={(e) => e.preventDefault()}
+              >
+                <div className="relative group">
+                  <input
+                    type="email"
+                    placeholder="E-posta adresiniz"
+                    className="w-full h-16 md:h-20 px-8 md:px-10 bg-transparent border-b border-neutral-700 text-white placeholder:text-neutral-500 focus:border-white focus:outline-none transition-all duration-700 text-base md:text-lg font-light tracking-wide group-hover:border-neutral-600"
+                  />
+                  <button
+                    type="submit"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 h-12 md:h-14 px-8 md:px-10 text-xs md:text-sm font-light tracking-[0.2em] text-white uppercase transition-all duration-700 hover:tracking-[0.3em] hover:text-neutral-200"
+                  >
+                    Abone Ol
+                  </button>
+                </div>
+              </motion.form>
+              
+              {/* Privacy Note */}
+              <motion.p 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.8 }}
+                className="text-xs text-neutral-500 mt-8 font-light"
+              >
+                Gizliliğinize saygı duyuyoruz. E-postanız asla paylaşılmaz.
+              </motion.p>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>

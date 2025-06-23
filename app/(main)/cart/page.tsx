@@ -50,7 +50,7 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen relative overflow-hidden">
+      <div className="min-h-screen relative overflow-x-hidden">
         {/* Luxury Background Pattern */}
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-neutral-100/30 rounded-full blur-3xl" />
@@ -84,7 +84,7 @@ export default function CartPage() {
             </motion.div>
             
             <motion.h1 
-              className="text-5xl md:text-6xl font-extralight text-neutral-900 mb-6 tracking-tight leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extralight text-neutral-900 mb-4 md:mb-6 tracking-tight leading-tight"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
@@ -93,7 +93,7 @@ export default function CartPage() {
             </motion.h1>
             
             <motion.p 
-              className="text-neutral-500 font-extralight mb-20 text-xl leading-relaxed max-w-lg mx-auto"
+              className="text-neutral-500 font-extralight mb-12 md:mb-20 text-base md:text-xl leading-relaxed max-w-lg mx-auto"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6, duration: 0.8 }}
@@ -114,7 +114,7 @@ export default function CartPage() {
                 >
                   <Button
                     size="lg"
-                    className="bg-neutral-900 hover:bg-neutral-800 text-white text-[12px] font-light tracking-[0.3em] uppercase transition-all duration-700 px-20 py-8 shadow-2xl shadow-neutral-900/20 hover:shadow-2xl hover:shadow-neutral-900/30 relative overflow-hidden group"
+                    className="bg-neutral-900 hover:bg-neutral-800 text-white text-[10px] md:text-[12px] font-light tracking-[0.2em] md:tracking-[0.3em] uppercase transition-all duration-700 px-12 md:px-20 py-6 md:py-8 shadow-2xl shadow-neutral-900/20 hover:shadow-2xl hover:shadow-neutral-900/30 relative overflow-hidden group"
                   >
                     <span className="relative z-10">Koleksiyonu Keşfet</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-neutral-800 to-neutral-900 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -129,7 +129,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative overflow-x-hidden">
       {/* Ultra Premium Background */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-b from-white via-neutral-50/30 to-white" />
@@ -140,7 +140,7 @@ export default function CartPage() {
       {/* Luxury Header */}
       <div className="relative">
         <div className="absolute inset-0 bg-gradient-to-b from-white/80 to-transparent backdrop-blur-sm" />
-        <div className="container mx-auto px-6 py-16 relative">
+        <div className="container mx-auto px-4 md:px-6 py-12 md:py-16 relative">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -169,7 +169,7 @@ export default function CartPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.8 }}
-              className="text-6xl md:text-7xl font-extralight text-neutral-900 mb-6 tracking-tight leading-none"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extralight text-neutral-900 mb-4 md:mb-6 tracking-tight leading-none"
             >
               Alışveriş Sepeti
             </motion.h1>
@@ -199,8 +199,8 @@ export default function CartPage() {
         </div>
       </div>
 
-      <div className="container mx-auto px-6 py-12">
-        <div className="grid lg:grid-cols-3 gap-20">
+      <div className="container mx-auto px-4 md:px-6 py-8 md:py-12">
+        <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 xl:gap-20">
           {/* Cart Items */}
           <div className="lg:col-span-2">
             <AnimatePresence mode="popLayout">
@@ -218,11 +218,11 @@ export default function CartPage() {
                   }}
                   className="group relative"
                 >
-                  <div className="py-12 first:pt-0">
-                    <div className="flex gap-8">
+                  <div className="py-8 md:py-12 first:pt-0">
+                    <div className="flex gap-4 md:gap-8">
                       {/* Premium Product Image */}
                       <motion.div 
-                        className="relative w-40 h-40 bg-gradient-to-br from-neutral-100 to-neutral-50 overflow-hidden flex-shrink-0"
+                        className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 bg-gradient-to-br from-neutral-100 to-neutral-50 overflow-hidden flex-shrink-0"
                         whileHover={{ scale: 1.02 }}
                         transition={{ duration: 0.4 }}
                       >
@@ -243,12 +243,12 @@ export default function CartPage() {
 
                       {/* Premium Product Details */}
                       <div className="flex-1 min-w-0">
-                        <div className="flex justify-between items-start mb-8">
+                        <div className="flex justify-between items-start mb-4 md:mb-8">
                           <div>
-                            <h3 className="text-xl font-extralight text-neutral-900 mb-2 tracking-wide">
+                            <h3 className="text-base md:text-xl font-extralight text-neutral-900 mb-1 md:mb-2 tracking-wide line-clamp-2">
                               {item.product.name}
                             </h3>
-                            <p className="text-[10px] tracking-[0.3em] text-neutral-400 uppercase font-light">
+                            <p className="text-[9px] md:text-[10px] tracking-[0.3em] text-neutral-400 uppercase font-light">
                               Ürün Kodu: {item.product_id}
                             </p>
                           </div>
@@ -262,32 +262,32 @@ export default function CartPage() {
                           </motion.button>
                         </div>
 
-                        <div className="flex items-end justify-between">
+                        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
                           <div className="flex items-center">
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                              className="w-12 h-12 flex items-center justify-center hover:bg-neutral-50 transition-all duration-300 border-r border-neutral-200"
+                              className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center hover:bg-neutral-50 transition-all duration-300 border-r border-neutral-200"
                             >
                               <Minus className="h-3 w-3 stroke-[1.5]" />
                             </button>
-                            <span className="px-8 text-sm font-light tracking-wide">
+                            <span className="px-4 md:px-8 text-sm font-light tracking-wide">
                               {item.quantity}
                             </span>
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              className="w-12 h-12 flex items-center justify-center hover:bg-neutral-50 transition-all duration-300 border-l border-neutral-200"
+                              className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center hover:bg-neutral-50 transition-all duration-300 border-l border-neutral-200"
                             >
                               <Plus className="h-3 w-3 stroke-[1.5]" />
                             </button>
                           </div>
 
                           <div className="text-right">
-                            <p className="text-[9px] tracking-[0.35em] text-neutral-400 uppercase mb-2 font-light">
+                            <p className="text-[8px] md:text-[9px] tracking-[0.35em] text-neutral-400 uppercase mb-1 md:mb-2 font-light">
                               Ara Toplam
                             </p>
-                            <p className="text-2xl font-extralight text-neutral-900 tracking-wide">
+                            <p className="text-xl md:text-2xl font-extralight text-neutral-900 tracking-wide">
                               {formatPrice(parseFloat(item.total))}
-                              <span className="text-[11px] ml-2 font-light text-neutral-500">₺</span>
+                              <span className="text-[10px] md:text-[11px] ml-1 md:ml-2 font-light text-neutral-500">₺</span>
                             </p>
                           </div>
                         </div>
@@ -296,7 +296,7 @@ export default function CartPage() {
                     
                     {/* Elegant Separator */}
                     {index < items.length - 1 && (
-                      <div className="mt-12 relative">
+                      <div className="mt-8 md:mt-12 relative">
                         <div className="absolute inset-0 flex items-center">
                           <div className="w-full border-t border-neutral-100"></div>
                         </div>
@@ -325,9 +325,9 @@ export default function CartPage() {
               <div className="absolute -inset-6 bg-gradient-to-br from-neutral-100/40 via-transparent to-neutral-100/20 blur-3xl" />
               <div className="absolute -inset-3 bg-gradient-to-tl from-neutral-50/50 via-transparent to-white/50 blur-2xl" />
               
-              <div className="relative bg-white/95 backdrop-blur-xl border border-neutral-200/30 p-12 shadow-2xl shadow-neutral-300/30">
+              <div className="relative bg-white/95 backdrop-blur-xl border border-neutral-200/30 p-6 sm:p-8 md:p-12 shadow-2xl shadow-neutral-300/30">
                 {/* Premium Header */}
-                <div className="text-center mb-12">
+                <div className="text-center mb-8 md:mb-12">
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -342,7 +342,7 @@ export default function CartPage() {
                   </h2>
                 </div>
 
-                <div className="space-y-6 mb-12">
+                <div className="space-y-4 md:space-y-6 mb-8 md:mb-12">
                   <div className="space-y-1">
                     <div className="flex justify-between items-center">
                       <span className="text-[13px] font-extralight text-neutral-600 tracking-wide">Ürün Toplamı</span>
@@ -368,7 +368,7 @@ export default function CartPage() {
                       <p className="text-[10px] tracking-[0.4em] text-neutral-500 uppercase mb-4">
                         Genel Toplam
                       </p>
-                      <p className="text-4xl font-extralight text-neutral-900 tracking-tight">
+                      <p className="text-3xl md:text-4xl font-extralight text-neutral-900 tracking-tight">
                         ₺{formatPrice(getTotalPrice())}
                       </p>
                     </div>
@@ -384,7 +384,7 @@ export default function CartPage() {
                     >
                       <Button 
                         size="lg"
-                        className="w-full h-16 bg-neutral-900 hover:bg-neutral-800 text-white text-[11px] font-light tracking-[0.35em] uppercase transition-all duration-700 shadow-2xl shadow-neutral-900/30 hover:shadow-2xl hover:shadow-neutral-900/40 relative overflow-hidden group"
+                        className="w-full h-14 md:h-16 bg-neutral-900 hover:bg-neutral-800 text-white text-[10px] md:text-[11px] font-light tracking-[0.3em] md:tracking-[0.35em] uppercase transition-all duration-700 shadow-2xl shadow-neutral-900/30 hover:shadow-2xl hover:shadow-neutral-900/40 relative overflow-hidden group"
                       >
                         <span className="relative z-10">Ödemeyi Tamamla</span>
                         <div className="absolute inset-0 bg-gradient-to-r from-neutral-800 via-neutral-900 to-neutral-800 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -400,7 +400,7 @@ export default function CartPage() {
                       <Button 
                         variant="ghost" 
                         size="lg"
-                        className="w-full h-14 text-neutral-500 hover:text-neutral-900 text-[10px] font-light tracking-[0.3em] uppercase transition-all duration-500 relative group"
+                        className="w-full h-12 md:h-14 text-neutral-500 hover:text-neutral-900 text-[9px] md:text-[10px] font-light tracking-[0.25em] md:tracking-[0.3em] uppercase transition-all duration-500 relative group"
                       >
                         <span>Alışverişe Devam Et</span>
                         <div className="absolute bottom-0 left-0 w-full h-[0.5px] bg-neutral-900 scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
@@ -411,12 +411,12 @@ export default function CartPage() {
 
                 {/* Premium Benefits */}
                 <motion.div 
-                  className="mt-12 pt-10 border-t border-neutral-100"
+                  className="mt-8 md:mt-12 pt-8 md:pt-10 border-t border-neutral-100"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.8, duration: 0.6 }}
                 >
-                  <div className="space-y-6">
+                  <div className="space-y-4 md:space-y-6">
                     <div className="flex items-start gap-4">
                       <div className="w-8 h-8 rounded-full bg-neutral-50 flex items-center justify-center flex-shrink-0">
                         <Truck className="w-4 h-4 text-neutral-400 stroke-[1]" />

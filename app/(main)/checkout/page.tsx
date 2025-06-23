@@ -116,7 +116,7 @@ export default function CheckoutPage() {
               className="inline-flex items-center gap-6"
             >
               <Lock className="w-4 h-4 text-neutral-400 stroke-[0.5]" />
-              <p className="text-neutral-600 font-extralight text-lg tracking-wide">
+              <p className="text-neutral-600 font-extralight text-sm md:text-lg tracking-wide">
                 256-bit SSL Şifreleme
               </p>
               <Lock className="w-4 h-4 text-neutral-400 stroke-[0.5]" />

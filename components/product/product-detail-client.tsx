@@ -664,7 +664,7 @@ export default function ProductDetailClient({ product, relatedProducts }: Produc
                     description: "2 ürün sepetinize eklendi.",
                   })
                 }}>
-                  <div className="border border-neutral-200 p-8 hover:border-neutral-400 transition-all duration-300 h-full flex flex-col">
+                  <div className="border border-neutral-200 p-6 md:p-8 hover:border-neutral-400 transition-all duration-300 h-full flex flex-col">
                     <div className="flex items-center justify-center gap-4 mb-6">
                       <div className="w-20 h-20 relative bg-neutral-50 overflow-hidden">
                         <Image

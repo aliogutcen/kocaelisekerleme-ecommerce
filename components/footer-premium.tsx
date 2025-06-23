@@ -83,7 +83,7 @@ export function FooterPremium() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors font-light"
+                    className="text-xs md:text-sm text-gray-600 hover:text-gray-900 transition-colors font-light"
                   >
                     {link.name}
                   </Link>
@@ -101,7 +101,7 @@ export function FooterPremium() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors font-light"
+                    className="text-xs md:text-sm text-gray-600 hover:text-gray-900 transition-colors font-light"
                   >
                     {link.name}
                   </Link>
@@ -119,7 +119,7 @@ export function FooterPremium() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className="text-sm text-gray-600 hover:text-gray-900 transition-colors font-light"
+                    className="text-xs md:text-sm text-gray-600 hover:text-gray-900 transition-colors font-light"
                   >
                     {link.name}
                   </Link>

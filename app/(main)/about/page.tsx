@@ -8,9 +8,9 @@ import { Award, Users, Leaf, Heart } from "lucide-react"
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative h-[60vh] md:h-[70vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/hikayemiz.jpg"
@@ -28,21 +28,21 @@ export default function AboutPage() {
           transition={{ duration: 0.8 }}
           className="relative z-10 text-center text-white max-w-4xl mx-auto px-4"
         >
-          <p className="text-xs tracking-[0.4em] mb-6 opacity-80">EST. 1948</p>
-          <h1 className="text-5xl md:text-7xl font-extralight tracking-tight mb-6">
+          <p className="text-[10px] md:text-xs tracking-[0.4em] mb-4 md:mb-6 opacity-80">EST. 1948</p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-extralight tracking-tight mb-4 md:mb-6">
             Hikayemiz
           </h1>
-          <p className="text-lg md:text-xl font-light opacity-90 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl font-light opacity-90 max-w-2xl mx-auto">
             Üç nesildir aynı tutkuyla, geleneksel lezzetleri modern standartlarda üretiyoruz
           </p>
         </motion.div>
       </section>
 
       {/* Story Section */}
-      <section className="py-20 md:py-32">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-32">
+        <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -85,7 +85,7 @@ export default function AboutPage() {
               >
                 <div className="aspect-[3/4] relative overflow-hidden">
                   <Image
-                    src="/hero.jpg"
+                    src="/hikayemiz.jpg"
                     alt="Kocaeli Şekerleme Tarihi"
                     fill
                     className="object-cover"
